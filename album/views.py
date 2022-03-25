@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http  import HttpResponse,Http404
+from .models import Author,Picture,Category,Location
 import datetime as dt
 
 # Create your views here.

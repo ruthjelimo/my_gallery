@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  {% if title %}
+  <title>Gallery site - {{title}}</title>
+  {% else %}
+    <title> Gallery site </title>
+  {% endif %}
+
+</head>
+<body>
+    {% block content %} <h1>Albums for {{date|date:"l d-F Y"}}</h1> {%endblock%}
+</body>
+</html>

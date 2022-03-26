@@ -90,4 +90,16 @@ class Image(models.Model):
         return self.name
 
 
-  
+  class Location(models.Model):
+    location_name = models.CharField(max_length=70)
+    def save_location(self):
+        self.save()
+
+    def __str__(self):
+        return self.location_name 
+
+    @classmethod
+    def get_location(cls):
+        locations = cls.objects.all()
+        return locations
+

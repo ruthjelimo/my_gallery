@@ -33,7 +33,7 @@ def search_results(request):
 
 def viewImg_by_location(request,location):
     locationimage = Image.view_image_by_location(location)
-    return render(request,"location_pics.html",{"locationpic":locationpic})
+    return render(request,"location_img.html",{"locationimg":locationimg})
 
 
 def viewImg_by_category(request,category):

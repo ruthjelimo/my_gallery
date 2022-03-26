@@ -10,7 +10,7 @@
             <h2> {{image.description}} </h2>
 
             <button type="button" class="btn btn-styled" data-toggle="modal" data-target="#myModal{{image.id}}">
-            <img width="400px" src=" {{pic.image.url}} " class="img-responsive" alt="one pic image">
+            <img width="400px" src=" {{pic.image.url}} " class="img-responsive" alt="one  image">
             <a class="btn btn-success" href="/single_pic/{{pic.id}} ">More</a> 
         </div>
         
@@ -18,21 +18,21 @@
         
         </button> 
         <br> {% endfor %} {% for pic in photos %}
-            <div class="modal fade" id="myModal{{pic.id}}" role="dialog">
+            <div class="modal fade" id="myModal{{image.id}}" role="dialog">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h1 class="modal-title">{{pic.name}}</h1>
+                            <h1 class="modal-title">{{image.name}}</h1>
                         </div>
                         <div class="modal-body">
                             <img width="400px" class="img-responsive" src=" {{pic.image.url}} " alt="img">
-                            <p>{{pic.description}}</p>
-                            <p>category:{{pic.category}}</p>
-                            <p>Location: {{pic.location}} </p>
+                            <p>{{image.description}}</p>
+                            <p>category:{{image.category}}</p>
+                            <p>Location: {{image.location}} </p>
                         </div>
                         <div class="modal-footer">
-                            <p>{{pic.author}}</p>
+                            <p>{{image.author}}</p>
                             <a href="{{pic.image.url }}"> <input class="form-control" type="text" value="{{ pic.image.url }}" id="link"></a>
                             <a onclick="myFunction()"><button type="button" class="btn btn-outline-success">Copy
                                 Link</button></a>

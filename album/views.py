@@ -1,56 +1,41 @@
 from django.shortcuts import render,redirect
 from django.http  import HttpResponse,Http404
-from .models import Author
-import datetime as dt
+from .models import Author,Image,Location,Category
+
 
 # Create your views here.
-def welcome(request):
-    return render(request, 'welcome.html')
-    # return HttpResponse('Ruth gallery site')
+def images(request):
+    category = Category.get_categories()
+    images = Image.all_images()
+    location_images = Location.get_location()
 
-def album_of_day(request):
-    date = dt.date.today()
-    return render(request, 'all-albums/today-album.html', {"date": date,})
-   
+    return render(request,'pics.html',{'images': images, 'category': category, 'location_images':location_images })
 
-# Create your views here.
 
-def convert_dates(dates):
-
-    # Function that gets the weekday number for the date.
-    day_number = dt.date.weekday(dates)
-
-    days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday',"Sunday"]
-
-    # Returning the actual day of the week
-    day = days[day_number]
-    return day
-
-def album_of_day(request):
-    date = dt.date.today()
-
-    # FUNCTION TO CONVERT DATE OBJECT TO FIND EXACT DAY
-    day = convert_dates(date)
-    html = f'''
-        <html>
-            <body>
-                <h1>Album for {day} {date.day}-{date.month}-{date.year}</h1>
-            </body>
-        </html>
-            '''
-    return HttpResponse(html)
-def past_days_album(request, past_date):
-
+def single_image(request,id):
     try:
-        # Converts data from the string Url
-        date = dt.datetime.strptime(past_date, '%Y-%m-%d').date()
-
-    except ValueError:
-        # Raise 404 error when ValueError is thrown
+        pic = Image.objects.get(id = id)
+    except DoesNotExist:
         raise Http404()
-        assert False
+    return render(request,"single_pic.html", {"pic":pic})
 
-    if date == dt.date.today():
-        return redirect(news_of_day)
+def search_results(request):
+    if 'image' in request.GET and request.GET["image"]:
+        search_term = request.GET.get('image')
+        searched_image = Image.search_by_name(search_term)
+        message = f'{search_term}'
 
-    return render(request, 'all-albums/past-album.html', {"date": date})
+        return render(request,'search.html',{"message":message,"image":searched_image})
+
+    else:
+        message = "You have not entered anything to search"
+        return render(request,'search.html',{"message":message})
+
+def viewImg_by_location(request,location):
+    locationimage = Image.view_image_by_location(location)
+    return render(request,"location_pics.html",{"locationpic":locationpic})
+
+
+def viewImg_by_category(request,category):
+    photos =Image.view_image_by_category(category)
+    return render (request,'category.html',{"photos":photos})

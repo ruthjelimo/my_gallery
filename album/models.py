@@ -17,10 +17,10 @@ class Image(models.Model):
     description = models.CharField(max_length=50)
     name = models.CharField(max_length=55)    
     pub_date = models.DateTimeField(auto_now_add=True)
-   
-    # location = models.ForeignKey('Location', on_delete = models.CASCADE)
-    # category = models.ForeignKey('Category', on_delete=models.CASCADE)
+    location = models.ForeignKey('Location', on_delete = models.CASCADE)
+    category = models.ForeignKey('Category', on_delete=models.CASCADE)
     author = models.ForeignKey(Author,on_delete = models.CASCADE)
+
 
 
     def save_image(self):
@@ -62,10 +62,8 @@ class Image(models.Model):
 
     
 
-   class Category(models.Model):
+class Category(models.Model):
     category_name = models.CharField(max_length=60)
-
-
 
     def save_category(self):
         self.save()
@@ -80,9 +78,6 @@ class Image(models.Model):
 
         return categories
 
-    def __str__(self):
-        return self.
-        
     def delete_category(self):
         self.delete()
 
@@ -90,7 +85,7 @@ class Image(models.Model):
         return self.name
 
 
-  class Location(models.Model):
+class Location(models.Model):
     location_name = models.CharField(max_length=70)
     def save_location(self):
         self.save()

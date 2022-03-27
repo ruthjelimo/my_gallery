@@ -47,13 +47,13 @@ class Image(models.Model):
     
     @classmethod
     def search_images_by_location(cls,location):
-        location_images = cls.objects.filter(location= location)
+        location_images = cls.objects.filter(location__location_name= location)
 
         return location_images
 
     @classmethod
     def search_images_by_category(cls,category):
-        category = cls.objects.filter(category = category)
+        category = cls.objects.filter(category__category_name= category)
         return category
 
 
@@ -82,19 +82,27 @@ class Category(models.Model):
         self.delete()
 
     def __str__(self):
-        return self.name
+        return self.category_name
 
 
 class Location(models.Model):
     location_name = models.CharField(max_length=70)
+
     def save_location(self):
         self.save()
 
-    def __str__(self):
-        return self.location_name 
+
+    def delete_location(self):
+        self.delete()
+        
+    
 
     @classmethod
     def get_location(cls):
         locations = cls.objects.all()
         return locations
+
+    def __str__(self):
+        return self.location_name 
+
 
